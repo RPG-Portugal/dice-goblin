@@ -1,9 +1,10 @@
 package com.rpgportugal.dicegoblin.expressions.operators
 
-import com.rpgportugal.com.rpgportugal.dicegoblin.dice.NumberDice
-import com.rpgportugal.com.rpgportugal.dicegoblin.expressions.StaticValueExpression
-import com.rpgportugal.com.rpgportugal.dicegoblin.expressions.dice.NumberDiceExpression
-import com.rpgportugal.com.rpgportugal.dicegoblin.expressions.operators.AddOperatorExpression
+import com.rpgportugal.com.rpgportugal.dicegoblin.expression.AddExpr
+import com.rpgportugal.com.rpgportugal.dicegoblin.expression.DiceExpr
+import com.rpgportugal.com.rpgportugal.dicegoblin.expression.NumericExpr
+import com.rpgportugal.dicegoblin.dice.Dice
+import com.rpgportugal.dicegoblin.dice.face.Face
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,34 +12,33 @@ class AddOperatorExpressionTest {
 
     @Test
     fun `Tests adding two statics`() {
-        val staticLeft = StaticValueExpression(4)
-        val staticRight = StaticValueExpression(10)
+        val staticLeft = NumericExpr(4)
+        val staticRight = NumericExpr(10)
 
-        val addOp = AddOperatorExpression(staticLeft, staticRight)
+        val addOp = AddExpr(staticLeft, staticRight)
 
-        assertEquals(14, addOp.calculate())
+        assertEquals(14, addOp.evaluate { 0 }.score)
     }
 
     @Test
     fun `Tests adding a NumberDice and a static`() {
-        val staticLeft = NumberDiceExpression(3, NumberDice(6))
-        val staticRight = StaticValueExpression(1)
+        val l = DiceExpr(Dice.numeric(3))
+        val r = NumericExpr(1)
 
-        val addOp = AddOperatorExpression(staticLeft, staticRight)
+        val addExprOp = AddExpr(l, r)
 
-        assert(addOp.calculate() in 4..19 )
+        assertEquals(4, addExprOp.evaluate { 2 }.score)
     }
 
     @Test
     fun `Tests if the expressionResults match the final result`() {
-        val staticLeft = NumberDiceExpression(3, NumberDice(6))
-        val staticRight = StaticValueExpression(1)
+        val staticLeft = DiceExpr(Dice.numeric(2))
+        val staticRight = NumericExpr(1)
 
-        val addOp = AddOperatorExpression(staticLeft, staticRight)
-        val result = addOp.evaluate()
+        val addOp  = AddExpr(staticLeft, staticRight)
+        val result = addOp.evaluate { 1 }
 
-        assert( result.resultList.sumOf {it.getValue()} ==
-                result.subResults.sumOf { it.resultList.sumOf { it.getValue() } })
+        assertEquals(Face(3, "2"), result)
     }
 
 }
