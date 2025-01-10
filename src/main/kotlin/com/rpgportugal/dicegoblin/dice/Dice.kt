@@ -13,7 +13,7 @@ fun interface Dice {
 
         fun numeric(size: Int): Dice =
             (1 .. size)
-                .map { Face(it) }
+                .map { Face.Dice(it) }
                 .toList()
                 .let(::generic)
 

@@ -1,16 +1,27 @@
 package com.rpgportugal.dicegoblin.dice.face
 
-data class Face(
-    val score : Int,
-    val symbol : String? = score.toString()) {
+sealed interface Face {
+    val value: Int
+    fun combine(other: Face, combiner: (Int, Int) -> Int): Face
 
-    fun combine(face: Face, scoreCombine: (Int, Int) -> Int) : Face {
-        val s = when {
-            symbol == null -> face.symbol
-            face.symbol == null -> symbol
-            else -> null
+    data class Number(override val value: Int) : Face {
+        override fun combine(other: Face, combiner: (Int, Int) -> Int): Face {
+            val combinedValue = combiner(value, other.value)
+            return when (other) {
+                is Dice -> Dice(combinedValue, other.symbol)
+                is Number -> Number(combinedValue)
+            }
         }
-
-        return Face(scoreCombine(score, face.score), s)
     }
+
+    data class Dice(override val value : Int, val symbol : String = value.toString()) : Face {
+        override fun combine(other: Face, scoreCombine: (Int, Int) -> Int) : Face {
+            val combinedScore = scoreCombine(value, other.value)
+            return when (other) {
+                is Dice -> Number(combinedScore)
+                is Number -> Dice(combinedScore, symbol)
+            }
+        }
+    }
+
 }
