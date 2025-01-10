@@ -1,6 +1,6 @@
 package com.rpgportugal.dicegoblin.expressions.operators
 
-import com.rpgportugal.com.rpgportugal.dicegoblin.expression.Expression
+import com.rpgportugal.dicegoblin.expression.Expression
 import com.rpgportugal.dicegoblin.dice.Dice
 import com.rpgportugal.dicegoblin.dice.face.Face
 import kotlin.test.Test

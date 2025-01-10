@@ -1,4 +1,4 @@
-package com.rpgportugal.com.rpgportugal.dicegoblin.expression
+package com.rpgportugal.dicegoblin.expression
 
 import com.rpgportugal.dicegoblin.dice.Dice
 import com.rpgportugal.dicegoblin.dice.face.Face
