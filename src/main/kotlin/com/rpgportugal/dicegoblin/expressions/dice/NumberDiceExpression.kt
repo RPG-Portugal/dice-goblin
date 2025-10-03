@@ -1,26 +1,31 @@
-package com.rpgportugal.com.rpgportugal.dicegoblin.expressions.dice
+package com.rpgportugal.dicegoblin.expressions.dice
 
-import com.rpgportugal.com.rpgportugal.dicegoblin.common.getWeightedRandom
-import com.rpgportugal.com.rpgportugal.dicegoblin.dice.NumberDice
-import com.rpgportugal.com.rpgportugal.dicegoblin.expression.IExpression
-import com.rpgportugal.com.rpgportugal.dicegoblin.expressions.ExpressionResult
+import com.rpgportugal.dicegoblin.dice.Dice
+import com.rpgportugal.dicegoblin.expression.Expression
+import com.rpgportugal.dicegoblin.expressions.ExpressionResult
+import com.rpgportugal.dicegoblin.expressions.modifiers.Modifier
 
 class NumberDiceExpression(
     val numberOfDice: Int,
-    val diceType: NumberDice,
-) : IExpression {
+    val diceType: Dice,
+    val modifier: Modifier?,
+) : Expression {
     override fun calculate(): Int =
         (1..numberOfDice).sumOf {
-            diceType.getFaces().entries.getWeightedRandom { member -> member.value }.key.getValue()
+            diceType.roll().getValue()
         }
 
-    override fun evaluate(): ExpressionResult =
-         ExpressionResult(
+    override fun evaluate(): ExpressionResult {
+        val result = ExpressionResult(
             this,
             (1..numberOfDice).map {
-                diceType.getFaces().entries.getWeightedRandom { member -> member.value }.key
+                diceType.roll()
             },
             listOf()
-            )
+        )
+
+        return modifier?.modifyResult(result) ?: result
+    }
+
 
 }

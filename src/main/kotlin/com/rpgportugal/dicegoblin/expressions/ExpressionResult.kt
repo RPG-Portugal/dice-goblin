@@ -1,11 +1,11 @@
-package com.rpgportugal.com.rpgportugal.dicegoblin.expressions
+package com.rpgportugal.dicegoblin.expressions
 
-import com.rpgportugal.com.rpgportugal.dicegoblin.dice.faces.IFace
-import com.rpgportugal.com.rpgportugal.dicegoblin.expression.IExpression
+import com.rpgportugal.dicegoblin.dice.faces.Face
+import com.rpgportugal.dicegoblin.expression.Expression
 
 class ExpressionResult(
-    val expression: IExpression,
-    val resultList: List<IFace>,
+    val expression: Expression,
+    val resultList: List<Face>,
     val subResults: List<ExpressionResult>
 ) {
 }

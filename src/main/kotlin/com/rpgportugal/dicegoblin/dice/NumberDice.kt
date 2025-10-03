@@ -1,11 +1,13 @@
-package com.rpgportugal.com.rpgportugal.dicegoblin.dice
+package com.rpgportugal.dicegoblin.dice
 
-import com.rpgportugal.com.rpgportugal.dicegoblin.dice.faces.IFace
-import com.rpgportugal.com.rpgportugal.dicegoblin.dice.faces.NumberFace
+import com.rpgportugal.dicegoblin.dice.faces.Face
+import com.rpgportugal.dicegoblin.dice.faces.NumberFace
 
-class NumberDice (val nrFaces: Int) : IDice {
+class NumberDice (val nrFaces: String) : Dice(nrFaces) {
 
-    override fun getFaces(): Map<IFace,Double> =
-        (1..nrFaces).associate { i -> NumberFace(i) to 1.0 }
+    override fun getFaces(): List<Pair<Face, Double>> =
+        (1..nrFaces.toInt()).map { i -> NumberFace(i) to 1.0 }
+
+    override fun getName(): String = nrFaces
 
 }

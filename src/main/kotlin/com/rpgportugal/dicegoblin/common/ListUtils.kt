@@ -1,4 +1,4 @@
-package com.rpgportugal.com.rpgportugal.dicegoblin.common
+package com.rpgportugal.dicegoblin.common
 
 fun <T>Collection<T>.getWeightedRandom(fn:(member:T)->Double): T {
     val randomNumber = Math.random() * this.sumOf{ fn(it) }

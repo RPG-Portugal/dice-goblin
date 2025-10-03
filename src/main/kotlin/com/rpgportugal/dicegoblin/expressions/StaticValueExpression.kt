@@ -1,11 +1,11 @@
-package com.rpgportugal.com.rpgportugal.dicegoblin.expressions
+package com.rpgportugal.dicegoblin.expressions
 
-import com.rpgportugal.com.rpgportugal.dicegoblin.dice.faces.NumberFace
-import com.rpgportugal.com.rpgportugal.dicegoblin.expression.IExpression
+import com.rpgportugal.dicegoblin.dice.faces.NumberFace
+import com.rpgportugal.dicegoblin.expression.Expression
 
 class StaticValueExpression(
     val staticValue: Int,
-) : IExpression {
+) : Expression {
     override fun calculate(): Int {
         return staticValue
     }

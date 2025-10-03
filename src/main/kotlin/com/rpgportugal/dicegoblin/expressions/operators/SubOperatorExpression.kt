@@ -4,22 +4,24 @@ import com.rpgportugal.dicegoblin.expression.Expression
 import com.rpgportugal.dicegoblin.expressions.OperatorCompanion
 import com.rpgportugal.dicegoblin.expressions.OperatorExpression
 
-class AddOperatorExpression(
+class SubOperatorExpression(
     override val left: Expression,
     override val right: Expression,
 ) : OperatorExpression {
-    override val calculationFn: (Int, Int) -> Int
-        get() = {a,b -> a+b}
 
+    override val calculationFn: (Int, Int) -> Int
+        get() = {a,b -> a-b}
 
     companion object : OperatorCompanion {
         override fun getOperatorSymbol(): String {
-            return "+"
+            return "-"
         }
+
         override fun getInstance(
             left: Expression,
             right: Expression
-        ): OperatorExpression = AddOperatorExpression(left, right)
+        ): OperatorExpression = SubOperatorExpression(left, right)
     }
+
 
 }

@@ -1,9 +1,8 @@
 package com.rpgportugal.dicegoblin.expressions.operators
 
-import com.rpgportugal.com.rpgportugal.dicegoblin.dice.NumberDice
-import com.rpgportugal.com.rpgportugal.dicegoblin.expressions.StaticValueExpression
-import com.rpgportugal.com.rpgportugal.dicegoblin.expressions.dice.NumberDiceExpression
-import com.rpgportugal.com.rpgportugal.dicegoblin.expressions.operators.AddOperatorExpression
+import com.rpgportugal.dicegoblin.dice.NumberDice
+import com.rpgportugal.dicegoblin.expressions.StaticValueExpression
+import com.rpgportugal.dicegoblin.expressions.dice.NumberDiceExpression
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -21,7 +20,7 @@ class AddOperatorExpressionTest {
 
     @Test
     fun `Tests adding a NumberDice and a static`() {
-        val staticLeft = NumberDiceExpression(3, NumberDice(6))
+        val staticLeft = NumberDiceExpression(3, NumberDice("6"), null)
         val staticRight = StaticValueExpression(1)
 
         val addOp = AddOperatorExpression(staticLeft, staticRight)
@@ -31,14 +30,14 @@ class AddOperatorExpressionTest {
 
     @Test
     fun `Tests if the expressionResults match the final result`() {
-        val staticLeft = NumberDiceExpression(3, NumberDice(6))
+        val staticLeft = NumberDiceExpression(3, NumberDice("6"), null)
         val staticRight = StaticValueExpression(1)
 
         val addOp = AddOperatorExpression(staticLeft, staticRight)
         val result = addOp.evaluate()
 
         assert( result.resultList.sumOf {it.getValue()} ==
-                result.subResults.sumOf { it.resultList.sumOf { it.getValue() } })
+                result.subResults.sumOf { it.resultList.sumOf { res -> res.getValue() } })
     }
 
 }
